@@ -32,7 +32,7 @@
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="0x00010000" startValue="0x10000000"/>
         </MemoryAreas>
-        <LocateLinkFile path="../../configuration/programdata/stmqrcode/arm-gcc-link.ld" type="0"/>
+        <LocateLinkFile path="../../../../../../coocox/coide/configuration/programdata/stmqrcode/arm-gcc-link.ld" type="0"/>
       </Link>
       <Output>
         <Option name="OutputFileType" value="0"/>
@@ -82,75 +82,73 @@
   </Components>
   <Files>
     <File name="cmsis_lib/source/stm32f4xx_gpio.c" path="cmsis_lib/source/stm32f4xx_gpio.c" type="1"/>
-    <File name="FatFS/diskio.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/diskio.h" type="1"/>
-    <File name="FatFS/integer.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/integer.h" type="1"/>
-    <File name="LibQREncode/qrspec.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrspec.c" type="1"/>
+    <File name="FatFS/diskio.h" path="FatFS/diskio.h" type="1"/>
+    <File name="FatFS/integer.h" path="FatFS/integer.h" type="1"/>
+    <File name="LibQREncode/qrspec.c" path="LibQREncode/qrspec.c" type="1"/>
     <File name="cmsis_boot" path="" type="2"/>
-    <File name="QR_Encode.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/QR_Encode.c" type="1"/>
+    <File name="LibQREncode/qrencode_inner.h" path="LibQREncode/qrencode_inner.h" type="1"/>
+    <File name="delay.h" path="delay.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_syscfg.h" path="cmsis_lib/include/stm32f4xx_syscfg.h" type="1"/>
-    <File name="LibQREncode/qrencode_inner.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrencode_inner.h" type="1"/>
-    <File name="delay.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/delay.h" type="1"/>
-    <File name="spi_sd.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/spi_sd.c" type="1"/>
-    <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
+    <File name="spi_sd.c" path="spi_sd.c" type="1"/>
     <File name="cmsis_boot/startup" path="" type="2"/>
+    <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
     <File name="cmsis_boot/stm32f4xx.h" path="cmsis_boot/stm32f4xx.h" type="1"/>
-    <File name="QR_Encode.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/QR_Encode.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_spi.c" path="cmsis_lib/source/stm32f4xx_spi.c" type="1"/>
     <File name="cmsis/core_cmFunc.h" path="cmsis/core_cmFunc.h" type="1"/>
     <File name="cmsis/core_cm4.h" path="cmsis/core_cm4.h" type="1"/>
-    <File name="LibQREncode/mask.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/mask.c" type="1"/>
-    <File name="List.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/List.c" type="1"/>
-    <File name="LibQREncode/qrencode.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrencode.c" type="1"/>
-    <File name="LibQREncode/mqrspec.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/mqrspec.h" type="1"/>
+    <File name="LibQREncode/mask.c" path="LibQREncode/mask.c" type="1"/>
+    <File name="List.c" path="List.c" type="1"/>
+    <File name="LibQREncode/qrencode.c" path="LibQREncode/qrencode.c" type="1"/>
+    <File name="LibQREncode/mqrspec.h" path="LibQREncode/mqrspec.h" type="1"/>
     <File name="cmsis_lib/source/misc.c" path="cmsis_lib/source/misc.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_tim.h" path="cmsis_lib/include/stm32f4xx_tim.h" type="1"/>
     <File name="syscalls/syscalls.c" path="syscalls/syscalls.c" type="1"/>
-    <File name="LibQREncode/qrencode.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrencode.h" type="1"/>
+    <File name="LibQREncode/qrencode.h" path="LibQREncode/qrencode.h" type="1"/>
     <File name="cmsis_lib/source" path="" type="2"/>
-    <File name="LibQREncode/qrinput.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrinput.h" type="1"/>
-    <File name="LibQREncode/mmask.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/mmask.h" type="1"/>
-    <File name="List.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/List.h" type="1"/>
-    <File name="LibQREncode/split.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/split.c" type="1"/>
+    <File name="LibQREncode/qrinput.h" path="LibQREncode/qrinput.h" type="1"/>
+    <File name="List.h" path="List.h" type="1"/>
+    <File name="LibQREncode/mmask.h" path="LibQREncode/mmask.h" type="1"/>
     <File name="cmsis_boot/stm32f4xx_conf.h" path="cmsis_boot/stm32f4xx_conf.h" type="1"/>
+    <File name="LibQREncode/split.c" path="LibQREncode/split.c" type="1"/>
     <File name="cmsis_boot/system_stm32f4xx.h" path="cmsis_boot/system_stm32f4xx.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_rtc.c" path="cmsis_lib/source/stm32f4xx_rtc.c" type="1"/>
-    <File name="tm_stm32f4_pcd8544.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/tm_stm32f4_pcd8544.h" type="1"/>
+    <File name="tm_stm32f4_pcd8544.h" path="tm_stm32f4_pcd8544.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_rcc.h" path="cmsis_lib/include/stm32f4xx_rcc.h" type="1"/>
-    <File name="LibQREncode/bitstream.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/bitstream.h" type="1"/>
+    <File name="LibQREncode/bitstream.h" path="LibQREncode/bitstream.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_syscfg.c" path="cmsis_lib/source/stm32f4xx_syscfg.c" type="1"/>
-    <File name="LibQREncode/mqrspec.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/mqrspec.c" type="1"/>
+    <File name="LibQREncode/mqrspec.c" path="LibQREncode/mqrspec.c" type="1"/>
     <File name="cmsis_boot/startup/startup_stm32f4xx.c" path="cmsis_boot/startup/startup_stm32f4xx.c" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_rcc.c" path="cmsis_lib/source/stm32f4xx_rcc.c" type="1"/>
     <File name="cmsis/core_cmInstr.h" path="cmsis/core_cmInstr.h" type="1"/>
-    <File name="FatFS/ff.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/ff.h" type="1"/>
     <File name="FatFS" path="" type="2"/>
-    <File name="tm_stm32f4_pcd8544.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/tm_stm32f4_pcd8544.c" type="1"/>
+    <File name="tm_stm32f4_pcd8544.c" path="tm_stm32f4_pcd8544.c" type="1"/>
+    <File name="FatFS/ff.h" path="FatFS/ff.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_exti.c" path="cmsis_lib/source/stm32f4xx_exti.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_exti.h" path="cmsis_lib/include/stm32f4xx_exti.h" type="1"/>
     <File name="cmsis_boot/system_stm32f4xx.c" path="cmsis_boot/system_stm32f4xx.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_spi.h" path="cmsis_lib/include/stm32f4xx_spi.h" type="1"/>
-    <File name="FatFS/bmp.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/bmp.h" type="1"/>
-    <File name="LibQREncode/split.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/split.h" type="1"/>
-    <File name="LibQREncode/rscode.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/rscode.c" type="1"/>
+    <File name="LibQREncode/split.h" path="LibQREncode/split.h" type="1"/>
+    <File name="FatFS/bmp.h" path="FatFS/bmp.h" type="1"/>
+    <File name="LibQREncode/rscode.c" path="LibQREncode/rscode.c" type="1"/>
     <File name="cmsis" path="" type="2"/>
     <File name="cmsis_lib" path="" type="2"/>
-    <File name="LibQREncode/bitstream.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/bitstream.c" type="1"/>
-    <File name="LibQREncode/qrspec.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrspec.h" type="1"/>
-    <File name="FatFS/bmp.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/bmp.c" type="1"/>
+    <File name="LibQREncode/bitstream.c" path="LibQREncode/bitstream.c" type="1"/>
+    <File name="FatFS/bmp.c" path="FatFS/bmp.c" type="1"/>
+    <File name="LibQREncode/qrspec.h" path="LibQREncode/qrspec.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_tim.c" path="cmsis_lib/source/stm32f4xx_tim.c" type="1"/>
-    <File name="FatFS/ffconf.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/ffconf.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_gpio.h" path="cmsis_lib/include/stm32f4xx_gpio.h" type="1"/>
+    <File name="FatFS/ffconf.h" path="FatFS/ffconf.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_rtc.h" path="cmsis_lib/include/stm32f4xx_rtc.h" type="1"/>
     <File name="syscalls" path="" type="2"/>
-    <File name="LibQREncode/mmask.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/mmask.c" type="1"/>
+    <File name="LibQREncode/mmask.c" path="LibQREncode/mmask.c" type="1"/>
     <File name="cmsis_lib/include/misc.h" path="cmsis_lib/include/misc.h" type="1"/>
-    <File name="LibQREncode/qrinput.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/qrinput.c" type="1"/>
-    <File name="LibQREncode/rscode.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/rscode.h" type="1"/>
+    <File name="LibQREncode/qrinput.c" path="LibQREncode/qrinput.c" type="1"/>
+    <File name="LibQREncode/rscode.h" path="LibQREncode/rscode.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
-    <File name="FatFS/ff.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/FatFS/ff.c" type="1"/>
-    <File name="LibQREncode/mask.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/mask.h" type="1"/>
-    <File name="LibQREncode/config.h" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/LibQREncode/config.h" type="1"/>
-    <File name="delay.c" path="../../../../Users/Robert/Desktop/wersjaStabilnaMemoryFail/STMwavPlayerMR/delay.c" type="1"/>
+    <File name="LibQREncode/mask.h" path="LibQREncode/mask.h" type="1"/>
+    <File name="LibQREncode/config.h" path="LibQREncode/config.h" type="1"/>
+    <File name="FatFS/ff.c" path="FatFS/ff.c" type="1"/>
+    <File name="delay.c" path="delay.c" type="1"/>
     <File name="main.c" path="main.c" type="1"/>
     <File name="LibQREncode" path="" type="2"/>
   </Files>
