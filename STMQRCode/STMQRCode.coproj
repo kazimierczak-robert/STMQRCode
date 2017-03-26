@@ -25,6 +25,7 @@
         <Option name="nostartfiles" value="1"/>
         <Option name="LTO" value="0"/>
         <Option name="IsNewStartupCode" value="1"/>
+        <Option name="Library" value="Not use C Library"/>
         <LinkedLibraries/>
         <MemoryAreas debugInFlashNotRAM="1">
           <Memory name="IROM1" type="ReadOnly" size="0x00100000" startValue="0x08000000"/>
@@ -84,72 +85,55 @@
     <File name="cmsis_lib/source/stm32f4xx_gpio.c" path="cmsis_lib/source/stm32f4xx_gpio.c" type="1"/>
     <File name="FatFS/diskio.h" path="FatFS/diskio.h" type="1"/>
     <File name="FatFS/integer.h" path="FatFS/integer.h" type="1"/>
-    <File name="LibQREncode/qrspec.c" path="LibQREncode/qrspec.c" type="1"/>
     <File name="cmsis_boot" path="" type="2"/>
-    <File name="LibQREncode/qrencode_inner.h" path="LibQREncode/qrencode_inner.h" type="1"/>
     <File name="delay.h" path="delay.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_syscfg.h" path="cmsis_lib/include/stm32f4xx_syscfg.h" type="1"/>
     <File name="spi_sd.c" path="spi_sd.c" type="1"/>
+    <File name="cmsis_boot/stm32f4xx.h" path="cmsis_boot/stm32f4xx.h" type="1"/>
     <File name="cmsis_boot/startup" path="" type="2"/>
     <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
-    <File name="cmsis_boot/stm32f4xx.h" path="cmsis_boot/stm32f4xx.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_spi.c" path="cmsis_lib/source/stm32f4xx_spi.c" type="1"/>
     <File name="cmsis/core_cmFunc.h" path="cmsis/core_cmFunc.h" type="1"/>
     <File name="cmsis/core_cm4.h" path="cmsis/core_cm4.h" type="1"/>
-    <File name="LibQREncode/mask.c" path="LibQREncode/mask.c" type="1"/>
     <File name="List.c" path="List.c" type="1"/>
-    <File name="LibQREncode/qrencode.c" path="LibQREncode/qrencode.c" type="1"/>
-    <File name="LibQREncode/mqrspec.h" path="LibQREncode/mqrspec.h" type="1"/>
     <File name="cmsis_lib/source/misc.c" path="cmsis_lib/source/misc.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_tim.h" path="cmsis_lib/include/stm32f4xx_tim.h" type="1"/>
     <File name="syscalls/syscalls.c" path="syscalls/syscalls.c" type="1"/>
-    <File name="LibQREncode/qrencode.h" path="LibQREncode/qrencode.h" type="1"/>
     <File name="cmsis_lib/source" path="" type="2"/>
-    <File name="LibQREncode/qrinput.h" path="LibQREncode/qrinput.h" type="1"/>
+    <File name="QRLib" path="" type="2"/>
     <File name="List.h" path="List.h" type="1"/>
-    <File name="LibQREncode/mmask.h" path="LibQREncode/mmask.h" type="1"/>
+    <File name="QRLib/qr_encode.c" path="QRLib/qr_encode.c" type="1"/>
     <File name="cmsis_boot/stm32f4xx_conf.h" path="cmsis_boot/stm32f4xx_conf.h" type="1"/>
-    <File name="LibQREncode/split.c" path="LibQREncode/split.c" type="1"/>
     <File name="cmsis_boot/system_stm32f4xx.h" path="cmsis_boot/system_stm32f4xx.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_rtc.c" path="cmsis_lib/source/stm32f4xx_rtc.c" type="1"/>
     <File name="tm_stm32f4_pcd8544.h" path="tm_stm32f4_pcd8544.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_rcc.h" path="cmsis_lib/include/stm32f4xx_rcc.h" type="1"/>
-    <File name="LibQREncode/bitstream.h" path="LibQREncode/bitstream.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_syscfg.c" path="cmsis_lib/source/stm32f4xx_syscfg.c" type="1"/>
-    <File name="LibQREncode/mqrspec.c" path="LibQREncode/mqrspec.c" type="1"/>
     <File name="cmsis_boot/startup/startup_stm32f4xx.c" path="cmsis_boot/startup/startup_stm32f4xx.c" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_rcc.c" path="cmsis_lib/source/stm32f4xx_rcc.c" type="1"/>
     <File name="cmsis/core_cmInstr.h" path="cmsis/core_cmInstr.h" type="1"/>
+    <File name="FatFS/ff.h" path="FatFS/ff.h" type="1"/>
     <File name="FatFS" path="" type="2"/>
     <File name="tm_stm32f4_pcd8544.c" path="tm_stm32f4_pcd8544.c" type="1"/>
-    <File name="FatFS/ff.h" path="FatFS/ff.h" type="1"/>
-    <File name="cmsis_lib/source/stm32f4xx_exti.c" path="cmsis_lib/source/stm32f4xx_exti.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_exti.h" path="cmsis_lib/include/stm32f4xx_exti.h" type="1"/>
+    <File name="cmsis_lib/source/stm32f4xx_exti.c" path="cmsis_lib/source/stm32f4xx_exti.c" type="1"/>
     <File name="cmsis_boot/system_stm32f4xx.c" path="cmsis_boot/system_stm32f4xx.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_spi.h" path="cmsis_lib/include/stm32f4xx_spi.h" type="1"/>
-    <File name="LibQREncode/split.h" path="LibQREncode/split.h" type="1"/>
     <File name="FatFS/bmp.h" path="FatFS/bmp.h" type="1"/>
-    <File name="LibQREncode/rscode.c" path="LibQREncode/rscode.c" type="1"/>
+    <File name="QRLib/qr_encode.h" path="QRLib/qr_encode.h" type="1"/>
     <File name="cmsis" path="" type="2"/>
     <File name="cmsis_lib" path="" type="2"/>
-    <File name="LibQREncode/bitstream.c" path="LibQREncode/bitstream.c" type="1"/>
     <File name="FatFS/bmp.c" path="FatFS/bmp.c" type="1"/>
-    <File name="LibQREncode/qrspec.h" path="LibQREncode/qrspec.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_tim.c" path="cmsis_lib/source/stm32f4xx_tim.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_gpio.h" path="cmsis_lib/include/stm32f4xx_gpio.h" type="1"/>
     <File name="FatFS/ffconf.h" path="FatFS/ffconf.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_rtc.h" path="cmsis_lib/include/stm32f4xx_rtc.h" type="1"/>
     <File name="syscalls" path="" type="2"/>
-    <File name="LibQREncode/mmask.c" path="LibQREncode/mmask.c" type="1"/>
     <File name="cmsis_lib/include/misc.h" path="cmsis_lib/include/misc.h" type="1"/>
-    <File name="LibQREncode/qrinput.c" path="LibQREncode/qrinput.c" type="1"/>
-    <File name="LibQREncode/rscode.h" path="LibQREncode/rscode.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
-    <File name="LibQREncode/mask.h" path="LibQREncode/mask.h" type="1"/>
-    <File name="LibQREncode/config.h" path="LibQREncode/config.h" type="1"/>
     <File name="FatFS/ff.c" path="FatFS/ff.c" type="1"/>
     <File name="delay.c" path="delay.c" type="1"/>
+    <File name="QRLib/qr_consts.h" path="QRLib/qr_consts.h" type="1"/>
     <File name="main.c" path="main.c" type="1"/>
-    <File name="LibQREncode" path="" type="2"/>
   </Files>
 </Project>

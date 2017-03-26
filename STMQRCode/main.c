@@ -13,7 +13,8 @@
 #include <stdbool.h>
 #include "tm_stm32f4_pcd8544.h"
 #include "bmp.h"
-#include "qrencode.h"
+#include "QRLib\qr_encode.h"
+
 FATFS fatfs;
 FIL file;
 
@@ -240,186 +241,59 @@ void display_const()
 //	-------------------------------------------------------
 //	Main
 //	-------------------------------------------------------
-
-void ReadAndDisplayBMP(uint16_t x, uint16_t y, char* filename)
+void displayQRCode(int side, uint8_t *bitdata)
 {
-	bmpDrawBitmap(x, y, filename);
-}
-#define OUT_FILE_PIXEL_PRESCALER	2	// Prescaler (number of pixels in bmp file for each QRCode pixel, on each dimension)
-
-#define PIXEL_COLOR_R				0	// Color of bmp pixels
-#define PIXEL_COLOR_G				0
-#define PIXEL_COLOR_B				0
-
-// BMP defines
-
-typedef unsigned short	WORD;
-typedef unsigned long	DWORD;
-typedef signed long		LONG;
-
-#define BI_RGB 0L
-
-#pragma pack(push, 2)
-
-typedef struct
-{
-	WORD    bfType;
-	DWORD   bfSize;
-	WORD    bfReserved1;
-	WORD    bfReserved2;
-	DWORD   bfOffBits;
-} BITMAPFILEHEADER;
-
-typedef struct
-{
-	DWORD      biSize;
-	LONG       biWidth;
-	LONG       biHeight;
-	WORD       biPlanes;
-	WORD       biBitCount;
-	DWORD      biCompression;
-	DWORD      biSizeImage;
-	LONG       biXPelsPerMeter;
-	LONG       biYPelsPerMeter;
-	DWORD      biClrUsed;
-	DWORD      biClrImportant;
-} BITMAPINFOHEADER;
-
-#pragma pack(pop)
-#include <stdio.h>
-void CreateQRCodeToBMP(char *QRCODE_TEXT, char* OUT_FILE)
-{
-	char*			szSourceSring = QRCODE_TEXT;
-	unsigned int	unWidth, x, y, l, n, unWidthAdjusted, unDataBytes;
-	unsigned char*	pRGBData, *pSourceData, *pDestData;
-	QRcode*			pQRC;
-	FILE*			f;
-
-	/*
-	* Create a symbol from the string. The library automatically parses the input
-	* string and encodes in a QR Code symbol.
-	* @warning This function is THREAD UNSAFE when pthread is disabled.
-	* @param string input string. It must be NUL terminated.
-	* @param version version of the symbol. If 0, the library chooses the minimum
-	*                version for the given input data.
-	* @param level error correction level.
-	* @param hint tell the library how non-alphanumerical characters should be
-	*             encoded. If QR_MODE_KANJI is given, kanji characters will be
-	*             encoded as Shif-JIS characters. If QR_MODE_8 is given, all of
-	*             non-alphanumerical characters will be encoded as is. If you want
-	*             to embed UTF-8 string, choose this.
-	* @param casesensitive case-sensitive(1) or not(0).
-	* @return an instance of QRcode class. The version of the result QRcode may
-	*         be larger than the designated version. On error, NULL is returned,
-	*         and errno is set to indicate the error. See Exceptions for the
-	*         details.
-	* @throw EINVAL invalid input object.
-	* @throw ENOMEM unable to allocate memory for input objects.
-	* @throw ERANGE input data is too large.
-	*/
-
-	// Compute QRCode
-
-	if (pQRC = QRcode_encodeString(szSourceSring, 0, QR_ECLEVEL_H, QR_MODE_8, 1))
+	PCD8544_Clear();
+	int i=0;
+	int j=0;
+	int a=0;
+	int l=0;
+	int n=0;
+	int OUT_FILE_PIXEL_PRESCALER=1;
+	if (side==21)
 	{
-		unWidth = pQRC->width;
-		unWidthAdjusted = unWidth * OUT_FILE_PIXEL_PRESCALER * 3;
+		OUT_FILE_PIXEL_PRESCALER=2;
+	}
 
-		if (unWidthAdjusted % 4)
-		{
-			unWidthAdjusted = (unWidthAdjusted / 4 + 1) * 4;
-		}
+		for (i = 0; i < side; i++) {
 
-		unDataBytes = unWidthAdjusted * unWidth * OUT_FILE_PIXEL_PRESCALER;
+			for (j = 0; j < side; j++) {
+				a = j * side + i;
 
-		// Allocate pixels buffer
-		if (!(pRGBData = (unsigned char*)malloc(unDataBytes)))
-		{
-			return;
-		}
-
-		// Preset to white
-		memset(pRGBData, 0xff, unDataBytes);
-
-		// Prepare bmp headers
-		BITMAPFILEHEADER kFileHeader;
-		kFileHeader.bfType = 0x4d42;  // "BM"
-		kFileHeader.bfSize = sizeof(BITMAPFILEHEADER) +
-			sizeof(BITMAPINFOHEADER) +
-			unDataBytes;
-		kFileHeader.bfReserved1 = 0;
-		kFileHeader.bfReserved2 = 0;
-		kFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) +
-			sizeof(BITMAPINFOHEADER);
-
-		BITMAPINFOHEADER kInfoHeader;
-		kInfoHeader.biSize = sizeof(BITMAPINFOHEADER);
-		kInfoHeader.biWidth = unWidth * OUT_FILE_PIXEL_PRESCALER;
-		kInfoHeader.biHeight =((int)unWidth * OUT_FILE_PIXEL_PRESCALER);
-		kInfoHeader.biPlanes = 1;
-		kInfoHeader.biBitCount = 24;
-		kInfoHeader.biCompression = BI_RGB;
-		kInfoHeader.biSizeImage = 0;
-		kInfoHeader.biXPelsPerMeter = 0;
-		kInfoHeader.biYPelsPerMeter = 0;
-		kInfoHeader.biClrUsed = 0;
-		kInfoHeader.biClrImportant = 0;
-
-
-		// Convert QrCode bits to bmp pixels
-		pSourceData = pQRC->data;
-		for (y = unWidth-1; y >=0; y--)
-		{
-			pDestData = pRGBData + unWidthAdjusted * y * OUT_FILE_PIXEL_PRESCALER;
-			for (x = 0; x < unWidth; x++)
-			{
-				if (*pSourceData & 1)
+				if ((bitdata[a / 8] & (1 << (7 - a % 8))))
 				{
 					for (l = 0; l < OUT_FILE_PIXEL_PRESCALER; l++)
 					{
 						for (n = 0; n < OUT_FILE_PIXEL_PRESCALER; n++)
 						{
-							*(pDestData + n * 3 + unWidthAdjusted * l) = PIXEL_COLOR_B;
-							*(pDestData + 1 + n * 3 + unWidthAdjusted * l) = PIXEL_COLOR_G;
-							*(pDestData + 2 + n * 3 + unWidthAdjusted * l) = PIXEL_COLOR_R;
+							//*(pDestData + n * 3 + unWidthAdjusted * l) = PIXEL_COLOR_B;
+							PCD8544_DrawPixel(OUT_FILE_PIXEL_PRESCALER*i+l,OUT_FILE_PIXEL_PRESCALER*(j)+n,PCD8544_Pixel_Set);
 						}
 					}
 				}
-				pDestData += 3 * OUT_FILE_PIXEL_PRESCALER;
-				pSourceData++;
 			}
-			if (y == 0) break;
 		}
 
-
-		// Output the bmp file
-		/*if (!(f=fopen( OUT_FILE, "wb")))
-		{
-			fwrite(&kFileHeader, sizeof(BITMAPFILEHEADER), 1, f);
-			fwrite(&kInfoHeader, sizeof(BITMAPINFOHEADER), 1, f);
-			fwrite(pRGBData, sizeof(unsigned char), unDataBytes, f);
-
-			fclose(f);
-		}
-		else
-		{
-
-			return;
-		}*/
-
-
-		// Free data
-		free(pRGBData);
-		QRcode_free(pQRC);
-	}
-	else
-	{
-
-		return;
-	}
-
+		 PCD8544_Refresh();
 }
+void ReadAndDisplayBMP(uint16_t x, uint16_t y, char* filename)
+{
+	bmpDrawBitmap(x, y, filename);
+}
+void QRGenerator(char *input)
+{
+	int side, i, j, a;
+	uint8_t bitdata[QR_MAX_BITDATA];
 
+	// remove newline
+	if (input[strlen(input) - 1] == '\n')
+	{
+		input[strlen(input) - 1] = 0;
+	}
+
+	side = qr_encode(QR_LEVEL_L, 0, input, 0, bitdata);
+	displayQRCode(side, bitdata);
+}
 int main( void )
 {
 	SystemInit();
@@ -511,8 +385,9 @@ int main( void )
 	INTERRUPT_init();
 	u32 i_loop=0;
 
-	CreateQRCodeToBMP("Test", "test.bmp");
-	ReadAndDisplayBMP(24,0,"test.bmp");
+	//TUTAJ
+	QRGenerator("masz wiadomosc");
+	//ReadAndDisplayBMP(24,0,"test.bmp");
 
 	for(;;)
 	{
