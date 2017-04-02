@@ -46,7 +46,7 @@
 </breakpoint>
 <breakpoint enabled="true" persistant="true" registered="true">
 <resource path="/STMQRCode/main.c" type="1"/>
-<marker lineNumber="404" type="org.eclipse.cdt.debug.core.cLineBreakpointMarker">
+<marker lineNumber="405" type="org.eclipse.cdt.debug.core.cLineBreakpointMarker">
 <attrib name="enabled" value="true"/>
 <attrib name="org.eclipse.cdt.debug.core.condition" value=""/>
 <attrib name="org.eclipse.debug.core.id" value="org.eclipse.cdt.debug.core"/>
@@ -66,7 +66,7 @@
 </breakpoint>
 <breakpoint enabled="true" persistant="true" registered="true">
 <resource path="/STMQRCode/main.c" type="1"/>
-<marker lineNumber="310" type="org.eclipse.cdt.debug.core.cLineBreakpointMarker">
+<marker lineNumber="315" type="org.eclipse.cdt.debug.core.cLineBreakpointMarker">
 <attrib name="enabled" value="true"/>
 <attrib name="org.eclipse.cdt.debug.core.condition" value=""/>
 <attrib name="org.eclipse.debug.core.id" value="org.eclipse.cdt.debug.core"/>

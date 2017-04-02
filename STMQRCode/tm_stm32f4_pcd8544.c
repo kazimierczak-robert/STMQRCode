@@ -434,15 +434,15 @@ void PCD8544_Clear(void) {
 	PCD8544_Refresh();
 }
 
-void PCD8544_Clear_time(void) {
+void PCD8544_ClearFilename(void) {
 	unsigned int i;
 	PCD8544_Home();
-	for (i = PCD8544_BUFFER_SIZE/2; i < PCD8544_BUFFER_SIZE-100; i++) {
+	for (i = PCD8544_BUFFER_SIZE/3; i < PCD8544_BUFFER_SIZE-168; i++) {
 		PCD8544_Buffer[i] = 0x00;
 		//PCD8544_Write(PCD8544_DATA, 0x00);
 	}
-	PCD8544_GotoXY(29, 27);
-	PCD8544_UpdateArea(29, 27, 68, 35);
+	PCD8544_GotoXY(9, 20);
+	PCD8544_UpdateArea(0, 10, 88, 38);
 	PCD8544_Refresh();
 }
 

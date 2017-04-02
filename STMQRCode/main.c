@@ -19,8 +19,6 @@ FATFS fatfs;
 FIL file;
 
 volatile s8 num_of_switch=-1;
-volatile u16 result_of_conversion=0;
-volatile u8 diode_state=0;
 volatile u8 error_state=0;
 struct List *first=0,*last=0,*pointer; //list of .txt file names
 char* readtxtFile();
@@ -63,11 +61,11 @@ void TIM4_IRQHandler(void)
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
 		}
-		if (error_state==2)// jesli wyjeto karte SD w trakcie odtwarzania plikow
+		/*if (error_state==2) //problem z odczytem pliku lub pusty plik
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_13);
-		}
-		if (error_state==3)// jesli na karcie SD nie ma plikow .wav
+		}*/
+		if (error_state==3)// jesli na karcie SD nie ma plikow .txt
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_14);
 		}
@@ -91,7 +89,7 @@ void TIM5_IRQHandler(void)
 		else if (num_of_switch==5)// switch 5 - previous file
 		{
 			pointer=pointer->previous;
-			//wyswietl
+			display_filename();
 		}
 		else if (num_of_switch==7)// switch 7 - generate QRCode
 		{
@@ -118,7 +116,7 @@ void TIM5_IRQHandler(void)
 		else if (num_of_switch==8)// switch 8 - next file
 		{
 			pointer=pointer->next;
-			//wyswietl
+			display_filename();
 		}
 		num_of_switch=-1;
 		TIM_Cmd(TIM5, DISABLE);
@@ -190,10 +188,10 @@ void DIODES_init()
 void BUTTON_init()
 {
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE);
-	/*0 - tryb losowy
+	/*0 - zapis do BMP
 	  5 - przewijanie wstecz
-	  6 - start/stop
-	  7 - przewijanie do przodu*/
+	  7 - generuj kod
+	  8 - przewijanie do przodu*/
 	GPIO_InitTypeDef USER_BUTTON;
 	USER_BUTTON.GPIO_Pin = GPIO_Pin_0;
 	USER_BUTTON.GPIO_Mode = GPIO_Mode_IN;
@@ -232,7 +230,7 @@ void INTERRUPT_init()
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource7);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource8);
 }
-bool fileType(FILINFO fileInfo)
+bool isTXT(FILINFO fileInfo)
 {
 	int i=0;
 	for (i=0;i<10;i++)
@@ -250,14 +248,21 @@ bool fileType(FILINFO fileInfo)
 void display_const()
 {
 	//Go to x=1, y=2 position
-	PCD8544_GotoXY(1, 2);
+	PCD8544_GotoXY(15, 0);
 	//Print data with Pixel Set mode and Fontsize of 5x7px
-	PCD8544_Puts("STMwavPlayerMR", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_GotoXY(31, 40);
-	PCD8544_Puts("2016", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_Puts("STMQRCode", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_GotoXY(32, 40);
+	PCD8544_Puts("2017", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
 	PCD8544_Refresh();
 }
 /* QRCode */
+void display_filename()
+{
+	PCD8544_ClearFilename();
+	//Print data with Pixel Set mode and Fontsize of 5x7px
+	PCD8544_Puts(pointer->file.fname, PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_Refresh();
+}
 void displayQRCode(int side, uint8_t *bitdata)
 {
 	PCD8544_Clear();
@@ -365,7 +370,7 @@ int main( void )
 		{
 			break;
 		}
-		if(fileType(fileInfo)==1)// sprawdzenie, czy plik na karcie ma rozszerzenie .txt
+		if(isTXT(fileInfo)==1)// sprawdzenie, czy plik na karcie ma rozszerzenie .txt
 		{
 			if(numberOfTxtFiles==0)
 			{
@@ -394,24 +399,18 @@ int main( void )
 	first->previous=last;
 	pointer=first;
 
-	//POPRAW
-	PCD8544_Puts(pointer->file.fname, PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_Refresh();
-
 	BUTTON_init();
 	JOINT_VIBRATION();
 	INTERRUPT_init();
 	u32 i_loop=0;
 
-	//TUTAJ
-	//QRGenerator("masz wiadomosc");
-	//ReadAndDisplayBMP(24,0,"test.bmp");
+	display_filename();
 
 	for(;;)
 	{
 
 	}
-
+/* przerobiæ na problem z odczytem
 	GPIO_ResetBits(GPIOD, GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
 	display_const();
 	PCD8544_GotoXY(8, 13);
@@ -424,7 +423,7 @@ int main( void )
 	TIM_Cmd(TIM2, DISABLE);
 	TIM_Cmd(TIM4, ENABLE);
 	for(;;)
-	{ }
+	{ }*/
 	return 0;
 }
 void SysTick_Handler()
