@@ -22,7 +22,8 @@ volatile s8 num_of_switch=-1;
 volatile u16 result_of_conversion=0;
 volatile u8 diode_state=0;
 volatile u8 error_state=0;
-
+struct List *first=0,*last=0,*pointer; //list of .txt file names
+char* readtxtFile();
 void EXTI0_IRQHandler(void)
 {
 	// drgania stykow
@@ -82,22 +83,42 @@ void TIM5_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM5, TIM_IT_Update) != RESET)
 	{
-		// miejsce na kod wywolywany w momencie wystapienia przerwania, drgania stykow
-		if (num_of_switch==0)// wcisnieto user button 0 - losowe odtwarzanie
+		if (num_of_switch==0)//user button
 		{
-
+			//ReadAndDisplayBMP(24,0,"test.bmp");
+			//generuj bitmape, zapisz do pliku
 		}
-		else if (num_of_switch==5)// wcisnieto switch 5 - przewijanie do przodu
+		else if (num_of_switch==5)// switch 5 - previous file
 		{
-
+			pointer=pointer->previous;
+			//wyswietl
 		}
-		else if (num_of_switch==7)// wcisnieto switch 7 - pauzuj/wznow
+		else if (num_of_switch==7)// switch 7 - generate QRCode
 		{
+			FRESULT fr;
+			struct List *temporary_txt=pointer;
+			char fileContent[322];
+			UINT *readBytes=0;
 
+			fr = f_open( &file, temporary_txt->file.fname, FA_READ );
+			if( fr == FR_OK )
+			{
+				f_read(&file,fileContent,322,readBytes);
+				f_close(&file);
+			}
+			if (fileContent!=0)
+			{
+				QRGenerator(fileContent);
+			}
+			else
+			{
+				//wyswietl problem
+			}
 		}
-		else if (num_of_switch==8)// wcisnieto switch 8 - przewijanie wstecz
+		else if (num_of_switch==8)// switch 8 - next file
 		{
-
+			pointer=pointer->next;
+			//wyswietl
 		}
 		num_of_switch=-1;
 		TIM_Cmd(TIM5, DISABLE);
@@ -218,7 +239,7 @@ bool fileType(FILINFO fileInfo)
 	{
 		if(fileInfo.fname[i]=='.')
 		{
-			if(fileInfo.fname[i+1]=='W' && fileInfo.fname[i+2]=='A' && fileInfo.fname[i+3]=='V')
+			if(fileInfo.fname[i+1]=='T' && fileInfo.fname[i+2]=='X' && fileInfo.fname[i+3]=='T')
 			{
 				return 1;
 			}
@@ -236,11 +257,7 @@ void display_const()
 	PCD8544_Puts("2016", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
 	PCD8544_Refresh();
 }
-//	-------------------------------------------------------
-
-//	-------------------------------------------------------
-//	Main
-//	-------------------------------------------------------
+/* QRCode */
 void displayQRCode(int side, uint8_t *bitdata)
 {
 	PCD8544_Clear();
@@ -254,7 +271,6 @@ void displayQRCode(int side, uint8_t *bitdata)
 	{
 		OUT_FILE_PIXEL_PRESCALER=2;
 	}
-
 		for (i = 0; i < side; i++) {
 
 			for (j = 0; j < side; j++) {
@@ -316,8 +332,6 @@ int main( void )
 	DIR Dir;
 	FILINFO fileInfo;
 
-	struct List *first=0,*last=0,*pointer;
-
 	disk_initialize(0);// inicjalizacja karty
 	fresult = f_mount( &fatfs, 1,1 );// zarejestrowanie dysku logicznego w systemie
 	if(fresult != FR_OK) //jesli wystapil blad tj. wlaczenie STM32 bez karty w module, zle podpiete kable
@@ -339,7 +353,7 @@ int main( void )
 	{
 		return(fresult);
 	}
-	u32 number_of_songs=0;
+	u32 numberOfTxtFiles=0;
 	for(;;)
 	{
 		fresult = f_readdir(&Dir, &fileInfo);
@@ -351,9 +365,9 @@ int main( void )
 		{
 			break;
 		}
-		if(fileType(fileInfo)==1)// sprawdzenie, czy plik na karcie ma rozszerzenie .wav
+		if(fileType(fileInfo)==1)// sprawdzenie, czy plik na karcie ma rozszerzenie .txt
 		{
-			if(number_of_songs==0)
+			if(numberOfTxtFiles==0)
 			{
 				first=last=add_last(last,fileInfo);
 			}
@@ -361,16 +375,16 @@ int main( void )
 			{
 				last=add_last(last,fileInfo);
 			}
-			number_of_songs++;
+			numberOfTxtFiles++;
 		}
 	}
-	/*if (first==0)// jesli na karcie nie ma plikow .wav
+	if (first==0)// jesli na karcie nie ma plikow .txt
 	{
 		error_state=3;
 		PCD8544_GotoXY(12, 17);
 		PCD8544_Puts("Brak plikow", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
 		PCD8544_GotoXY(3, 25);
-		PCD8544_Puts(".wav na karcie", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+		PCD8544_Puts(".txt na karcie", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
 		PCD8544_Refresh();
 		TIM_Cmd(TIM4, ENABLE);
 		for(;;)
@@ -379,14 +393,18 @@ int main( void )
 	last->next=first;
 	first->previous=last;
 	pointer=first;
-*/
+
+	//POPRAW
+	PCD8544_Puts(pointer->file.fname, PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_Refresh();
+
 	BUTTON_init();
 	JOINT_VIBRATION();
 	INTERRUPT_init();
 	u32 i_loop=0;
 
 	//TUTAJ
-	QRGenerator("masz wiadomosc");
+	//QRGenerator("masz wiadomosc");
 	//ReadAndDisplayBMP(24,0,"test.bmp");
 
 	for(;;)

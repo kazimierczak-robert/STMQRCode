@@ -24,6 +24,10 @@
 <part id="2"/>
 <part id="3"/>
 <part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
 </presentation>
 </folder>
 </info>
@@ -38,15 +42,31 @@
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/main.c" title="main.c" tooltip="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/main.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/STMQRCode/main.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="11511" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="11653" selectionTopPixel="425"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="bmp.c" partName="bmp.c" path="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/FatFS/bmp.c" title="bmp.c" tooltip="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/FatFS/bmp.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/STMQRCode/FatFS/bmp.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="16" selectionOffset="5002" selectionTopPixel="986"/>
+<editorState selectionHorizontalPixel="0" selectionLength="16" selectionOffset="5002" selectionTopPixel="272"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="qr_encode.c" partName="qr_encode.c" path="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/QRLib/qr_encode.c" title="qr_encode.c" tooltip="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/QRLib/qr_encode.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/STMQRCode/QRLib/qr_encode.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="32627" selectionTopPixel="3162"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="28777" selectionTopPixel="1003"/>
+</editor>
+<editor id="org.coocox.builder.ui.editors.ConfigEditor" name="" partName="Configuration" title="Configuration" tooltip="" workbook="DefaultEditorWorkbook">
+<input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">&#x0A;<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="5" verticalPosition="0"/>
+</input>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="ff.h" partName="ff.h" path="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/FatFS/ff.h" title="ff.h" tooltip="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/FatFS/ff.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/STMQRCode/FatFS/ff.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="6" selectionOffset="11267" selectionTopPixel="2210"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="ffconf.h" partName="ffconf.h" path="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/FatFS/ffconf.h" title="ffconf.h" tooltip="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/FatFS/ffconf.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/STMQRCode/FatFS/ffconf.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="1" selectionOffset="4777" selectionTopPixel="1190"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" partName="startup_stm32f4xx.c" path="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c" title="startup_stm32f4xx.c" tooltip="C:/Users/Monika/Documents/GitHub/STMQRCode/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1154" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -54,7 +74,13 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="0">
 <expanded>
 <element path="/STMQRCode"/>
+<element path="/STMQRCode/cmsis_boot"/>
+<element path="/STMQRCode/cmsis_boot/startup"/>
+<element path="/STMQRCode/FatFS"/>
 </expanded>
+<selection>
+<element path="/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c"/>
+</selection>
 </viewState>
 </view>
 <view id="org.coocox.component.ui.ComponentView" partName="Components">
@@ -205,8 +231,8 @@
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <hide_toolbar_item_id id="org.coocox.builder.ui.build"/>
 <hide_toolbar_item_id id="org.coocox.welcome.ui.action.welcome"/>
-<hide_toolbar_item_id id="org.coocox.component.ui.ShowRepositoryAction"/>
 <hide_toolbar_item_id id="org.coocox.codebugger.configuration.coideProgramDownloadAction"/>
+<hide_toolbar_item_id id="org.coocox.component.ui.ShowRepositoryAction"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <view id="org.eclipse.debug.ui.BreakpointView"/>
@@ -275,160 +301,157 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/STMQRCode/main.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/STMQRCode/FatFS/bmp.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/STMQRCode/QRLib/qr_encode.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/STMQRCode/cmsis_boot/system_stm32f4xx.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/STMQRCode/QRLib/qr_encode.c"/>
 </editors>
-<item historyLabel="bmp.c" index="2">
-<position info="not_deleted" x="2782" y="14"/>
-</item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9128" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9237" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
 <position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9127" y="0"/>
+<position/>
 </item>
-<item historyLabel="qr_encode.c" index="3">
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="9335" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="9418" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
 <position info="not_deleted" x="28611" y="0"/>
 </item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9127" y="0"/>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28640" y="0"/>
 </item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9213" y="0"/>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28659" y="0"/>
 </item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8824" y="0"/>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28680" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28777" y="0"/>
 </item>
 <item historyLabel="startup_stm32f4xx.c" index="1">
-<position info="not_deleted" x="87" y="0"/>
+<position info="not_deleted" x="1154" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8824" y="0"/>
-</item>
-<item historyLabel="bmp.c" index="2">
-<position info="not_deleted" x="5715" y="0"/>
+<position info="not_deleted" x="9528" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8824" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9211" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8321" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9237" y="0"/>
-</item>
-<item historyLabel="system_stm32f4xx.c" index="4">
-<position info="not_deleted" x="9181" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9253" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9291" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9308" y="0"/>
+<position info="not_deleted" x="9335" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9384" y="0"/>
+<position info="not_deleted" x="9418" y="0"/>
 </item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9545" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9619" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9693" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9715" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="11483" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9044" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9127" y="0"/>
-</item>
-<item historyLabel="qr_encode.c" index="5">
+<item historyLabel="qr_encode.c" index="2">
 <position info="not_deleted" x="28611" y="0"/>
 </item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9127" y="0"/>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28640" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28659" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28680" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28777" y="0"/>
+</item>
+<item historyLabel="startup_stm32f4xx.c" index="1">
+<position info="not_deleted" x="1154" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="9181" y="0"/>
+<position info="not_deleted" x="9528" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8173" y="0"/>
+<position info="not_deleted" x="9544" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8184" y="0"/>
+<position info="not_deleted" x="9582" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8195" y="0"/>
+<position info="not_deleted" x="9599" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8317" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8317" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8317" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8317" y="0"/>
+<position info="not_deleted" x="9675" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
 <position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8317" y="0"/>
-</item>
-<item historyLabel="bmp.c" index="2">
-<position info="not_deleted" x="5738" y="19"/>
-</item>
-<item historyLabel="qr_encode.c" index="5">
-<position info="not_deleted" x="32627" y="0"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8824" y="0"/>
-</item>
-<item historyLabel="bmp.c" index="2">
-<position info="not_deleted" x="5002" y="16"/>
+<position/>
 </item>
 <item historyLabel="main.c" index="0">
-<position info="not_deleted" x="8824" y="0"/>
+<position/>
+</item>
+<item historyLabel="main.c" index="0">
+<position/>
+</item>
+<item historyLabel="main.c" index="0">
+<position/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="9335" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="9418" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28611" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28640" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28659" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28680" y="0"/>
+</item>
+<item historyLabel="qr_encode.c" index="2">
+<position info="not_deleted" x="28777" y="0"/>
+</item>
+<item historyLabel="startup_stm32f4xx.c" index="1">
+<position info="not_deleted" x="1154" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position/>
+</item>
+<item historyLabel="startup_stm32f4xx.c" index="1">
+<position info="not_deleted" x="1154" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="9528" y="0"/>
 </item>
 <item historyLabel="main.c" index="0">
 <position/>
 </item>
 <item active="true" historyLabel="main.c" index="0">
-<position info="not_deleted" x="12110" y="3"/>
+<position info="not_deleted" x="11731" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -437,6 +460,15 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" tooltip="STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c">
+<persistable path="/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="ffconf.h" tooltip="STMQRCode/FatFS/ffconf.h">
+<persistable path="/STMQRCode/FatFS/ffconf.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="ff.h" tooltip="STMQRCode/FatFS/ff.h">
+<persistable path="/STMQRCode/FatFS/ff.h"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="system_stm32f4xx.c" tooltip="STMQRCode/cmsis_boot/system_stm32f4xx.c">
 <persistable path="/STMQRCode/cmsis_boot/system_stm32f4xx.c"/>
 </file>
@@ -458,12 +490,6 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="List.h" tooltip="STMQRCode/List.h">
 <persistable path="/STMQRCode/List.h"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="ff.h" tooltip="STMQRCode/FatFS/ff.h">
-<persistable path="/STMQRCode/FatFS/ff.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" tooltip="STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c">
-<persistable path="/STMQRCode/cmsis_boot/startup/startup_stm32f4xx.c"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="syscalls.c" tooltip="STMQRCode/syscalls/syscalls.c">
 <persistable path="/STMQRCode/syscalls/syscalls.c"/>
 </file>
@@ -475,9 +501,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="EasyBMP_BMP.h" tooltip="STMQRCode/EasyBMP/EasyBMP_BMP.h">
 <persistable path="/STMQRCode/EasyBMP/EasyBMP_BMP.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="EasyBMP.c" tooltip="STMQRCode/EasyBMP/EasyBMP.c">
-<persistable path="/STMQRCode/EasyBMP/EasyBMP.c"/>
 </file>
 </mruList>
 </workbench>
