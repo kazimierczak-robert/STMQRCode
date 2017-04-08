@@ -20,7 +20,9 @@ FIL file;
 
 volatile s8 num_of_switch=-1;
 volatile u8 error_state=0;
+volatile bool action_button_state=0;
 struct List *first=0,*last=0,*pointer; //list of .txt file names
+
 char* readtxtFile();
 void EXTI0_IRQHandler(void)
 {
@@ -61,10 +63,10 @@ void TIM4_IRQHandler(void)
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_12);
 		}
-		/*if (error_state==2) //problem z odczytem pliku lub pusty plik
+		if (error_state==2) //problem z odczytem pliku lub pusty plik
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_13);
-		}*/
+		}
 		if (error_state==3)// jesli na karcie SD nie ma plikow .txt
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_14);
@@ -88,35 +90,65 @@ void TIM5_IRQHandler(void)
 		}
 		else if (num_of_switch==5)// switch 5 - previous file
 		{
-			pointer=pointer->previous;
-			display_filename();
+			if(action_button_state==0)
+			{
+				pointer=pointer->previous;
+				display_filename();
+			}
 		}
 		else if (num_of_switch==7)// switch 7 - generate QRCode
 		{
-			FRESULT fr;
-			struct List *temporary_txt=pointer;
-			char fileContent[322];
-			UINT *readBytes=0;
+			if(action_button_state==0)
+			{
+				action_button_state=1;
+				FRESULT fr;
+				struct List *temporary_txt=pointer;
+				char fileContent[1];
+				UINT *readBytes=0;
 
-			fr = f_open( &file, temporary_txt->file.fname, FA_READ );
-			if( fr == FR_OK )
-			{
-				f_read(&file,fileContent,322,readBytes);
-				f_close(&file);
-			}
-			if (fileContent!=0)
-			{
-				QRGenerator(fileContent);
+				fr = f_open( &file, temporary_txt->file.fname, FA_READ );
+				if( fr == FR_OK )
+				{
+					f_read(&file,fileContent,7089,readBytes);
+					f_close(&file);
+				}
+				if (fileContent[0]!='\200')
+				{
+					QRGenerator(fileContent);
+				}
+				else
+				{
+					error_state=3;
+					GPIO_ResetBits(GPIOD, GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
+					TIM_Cmd(TIM4, ENABLE);
+					PCD8544_ClearFilename();
+					PCD8544_GotoXY(0, 13);
+					PCD8544_Puts("Plik jest pusty", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+					PCD8544_GotoXY(5, 21);
+					PCD8544_Puts("lub problem z", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+					PCD8544_GotoXY(3, 29);
+					PCD8544_Puts("jego odczytem", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+					PCD8544_Refresh();
+				}
 			}
 			else
 			{
-				//wyswietl problem
+				GPIO_ResetBits(GPIOD, GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
+				TIM_Cmd(TIM4, DISABLE);
+				TIM_SetCounter(TIM4, 0);
+				action_button_state=0;
+				PCD8544_Clear();
+				display_const();
+				display_filename();
 			}
 		}
 		else if (num_of_switch==8)// switch 8 - next file
 		{
-			pointer=pointer->next;
-			display_filename();
+			if(action_button_state==0)
+			{
+				pointer=pointer->next;
+				display_filename();
+			}
 		}
 		num_of_switch=-1;
 		TIM_Cmd(TIM5, DISABLE);
@@ -410,20 +442,7 @@ int main( void )
 	{
 
 	}
-/* przerobiæ na problem z odczytem
-	GPIO_ResetBits(GPIOD, GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
-	display_const();
-	PCD8544_GotoXY(8, 13);
-	PCD8544_Puts("Wyjeto karte", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_GotoXY(34, 21);
-	PCD8544_Puts("lub", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_GotoXY(5, 29);
-	PCD8544_Puts("wypiety kabel", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_Refresh();
-	TIM_Cmd(TIM2, DISABLE);
-	TIM_Cmd(TIM4, ENABLE);
-	for(;;)
-	{ }*/
+
 	return 0;
 }
 void SysTick_Handler()
