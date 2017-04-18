@@ -437,7 +437,7 @@ void PCD8544_Clear(void) {
 void PCD8544_ClearFilename(void) {
 	unsigned int i;
 	PCD8544_Home();
-	for (i = PCD8544_BUFFER_SIZE/3; i < PCD8544_BUFFER_SIZE-168; i++) {
+	for (i = PCD8544_BUFFER_SIZE/6; i < PCD8544_BUFFER_SIZE-84; i++) {
 		PCD8544_Buffer[i] = 0x00;
 		//PCD8544_Write(PCD8544_DATA, 0x00);
 	}

@@ -86,8 +86,8 @@
     <File name="FatFS/diskio.h" path="FatFS/diskio.h" type="1"/>
     <File name="FatFS/integer.h" path="FatFS/integer.h" type="1"/>
     <File name="cmsis_boot" path="" type="2"/>
-    <File name="delay.h" path="delay.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_syscfg.h" path="cmsis_lib/include/stm32f4xx_syscfg.h" type="1"/>
+    <File name="delay.h" path="delay.h" type="1"/>
     <File name="spi_sd.c" path="spi_sd.c" type="1"/>
     <File name="cmsis_boot/startup" path="" type="2"/>
     <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
@@ -132,8 +132,8 @@
     <File name="cmsis_lib/include/misc.h" path="cmsis_lib/include/misc.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
     <File name="FatFS/ff.c" path="FatFS/ff.c" type="1"/>
-    <File name="delay.c" path="delay.c" type="1"/>
     <File name="QRLib/qr_consts.h" path="QRLib/qr_consts.h" type="1"/>
+    <File name="delay.c" path="delay.c" type="1"/>
     <File name="main.c" path="main.c" type="1"/>
   </Files>
 </Project>

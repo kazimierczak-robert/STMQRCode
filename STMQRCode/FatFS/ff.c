@@ -1609,6 +1609,29 @@ const BYTE LfnOfs[] = {1,3,5,7,9,14,16,18,20,22,24,28,30};	/* Offset of LFN char
 /*--------------------------------------------------------*/
 /* FAT-LFN: Compare a part of file name with an LFN entry */
 /*--------------------------------------------------------*/
+WCHAR ff_convert (WCHAR wch, UINT dir)
+{
+          if (wch < 0x80) {
+                    /* ASCII Char */
+                    return wch;
+          }
+
+          /* I don't support unicode it is too big! */
+          return 0;
+}
+WCHAR ff_wtoupper (WCHAR wch)
+{
+          if (wch < 0x80) {
+                    /* ASCII Char */
+                    if (wch >= 'a' && wch <= 'z') {
+                              wch &= ~0x20;
+                     }
+                      return wch;
+          }
+
+          /* I don't support unicode it is too big! */
+          return 0;
+}
 static
 int cmp_lfn (				/* 1:matched, 0:not matched */
 	const WCHAR* lfnbuf,	/* Pointer to the LFN working buffer to be compared */

@@ -265,11 +265,13 @@ void INTERRUPT_init()
 bool isTXT(FILINFO fileInfo)
 {
 	int i=0;
-	for (i=0;i<10;i++)
+	for (i=0;i<253;i++)
 	{
 		if(fileInfo.fname[i]=='.')
 		{
-			if(fileInfo.fname[i+1]=='T' && fileInfo.fname[i+2]=='X' && fileInfo.fname[i+3]=='T')
+			if((fileInfo.fname[i+1]=='T'|| fileInfo.fname[i+1]=='t')
+					&& (fileInfo.fname[i+2]=='X' || fileInfo.fname[i+2]=='x')
+					&& (fileInfo.fname[i+3]=='T'|| fileInfo.fname[i+3]=='t'))
 			{
 				return 1;
 			}
@@ -391,6 +393,7 @@ int main( void )
 		return(fresult);
 	}
 	u32 numberOfTxtFiles=0;
+	u8 iter=0;
 	for(;;)
 	{
 		fresult = f_readdir(&Dir, &fileInfo);
@@ -413,6 +416,10 @@ int main( void )
 				last=add_last(last,fileInfo);
 			}
 			numberOfTxtFiles++;
+		}
+		for(iter=0;iter<255;++iter)
+		{
+			fileInfo.fname[iter]='0';
 		}
 	}
 	if (first==0)// jesli na karcie nie ma plikow .txt
