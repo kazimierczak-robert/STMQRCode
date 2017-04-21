@@ -279,6 +279,23 @@ bool isTXT(FILINFO fileInfo)
 	}
 	return 0;
 }
+bool isBMP(FILINFO fileInfo)
+{
+	int i=0;
+	for (i=0;i<253;i++)
+	{
+		if(fileInfo.fname[i]=='.')
+		{
+			if((fileInfo.fname[i+1]=='B'|| fileInfo.fname[i+1]=='b')
+					&& (fileInfo.fname[i+2]=='M' || fileInfo.fname[i+2]=='m')
+					&& (fileInfo.fname[i+3]=='P'|| fileInfo.fname[i+3]=='p'))
+			{
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
 void display_const()
 {
 	//Go to x=1, y=2 position
@@ -349,6 +366,70 @@ void QRGenerator(char *input)
 	side = qr_encode(QR_LEVEL_L, 0, input, 0, bitdata);
 	displayQRCode(side, bitdata);
 }
+void listManager(bool RadicalsOrText) //Radicals->true, Text->false
+{
+	FRESULT fresult;
+	DIR Dir;
+	FILINFO fileInfo;
+
+	//choose Radicals or Text QR Code
+	if (RadicalsOrText==true)
+	{
+		fresult = f_opendir(&Dir, "\\Radicals");
+	}
+	else
+	{
+		fresult = f_opendir(&Dir, "\\");
+	}
+
+	if(fresult != FR_OK)
+	{
+		return(fresult);
+	}
+
+	u32 numberOfFiles=0;
+	u8 iter=0;
+	bool extResult=false;
+	for(;;)
+	{
+		fresult = f_readdir(&Dir, &fileInfo);
+
+		if(fresult != FR_OK)
+		{
+			return(fresult);
+		}
+		if(!fileInfo.fname[0])
+		{
+			break;
+		}
+
+		if (RadicalsOrText==true)
+		{
+			extResult=isBMP(fileInfo);
+		}
+		else
+		{
+			extResult=isTXT(fileInfo);
+		}
+		if(extResult==1)
+		{
+			if(numberOfFiles==0)
+			{
+				first=last=add_last(last,fileInfo);
+			}
+			else
+			{
+				last=add_last(last,fileInfo);
+			}
+				numberOfFiles++;
+			}
+
+			for(iter=0;iter<255;++iter)
+			{
+				fileInfo.fname[iter]='0';
+			}
+		}
+}
 int main( void )
 {
 	SystemInit();
@@ -368,8 +449,6 @@ int main( void )
 
 	// SD CARD
 	FRESULT fresult;
-	DIR Dir;
-	FILINFO fileInfo;
 
 	disk_initialize(0);// inicjalizacja karty
 	fresult = f_mount( &fatfs, 1,1 );// zarejestrowanie dysku logicznego w systemie
@@ -387,41 +466,8 @@ int main( void )
 		for(;;)
 		{ }
 	}
-	fresult = f_opendir(&Dir, "\\");
-	if(fresult != FR_OK)
-	{
-		return(fresult);
-	}
-	u32 numberOfTxtFiles=0;
-	u8 iter=0;
-	for(;;)
-	{
-		fresult = f_readdir(&Dir, &fileInfo);
-		if(fresult != FR_OK)
-		{
-			return(fresult);
-		}
-		if(!fileInfo.fname[0])
-		{
-			break;
-		}
-		if(isTXT(fileInfo)==1)// sprawdzenie, czy plik na karcie ma rozszerzenie .txt
-		{
-			if(numberOfTxtFiles==0)
-			{
-				first=last=add_last(last,fileInfo);
-			}
-			else
-			{
-				last=add_last(last,fileInfo);
-			}
-			numberOfTxtFiles++;
-		}
-		for(iter=0;iter<255;++iter)
-		{
-			fileInfo.fname[iter]='0';
-		}
-	}
+	listManager(1);
+
 	if (first==0)// jesli na karcie nie ma plikow .txt
 	{
 		error_state=3;
