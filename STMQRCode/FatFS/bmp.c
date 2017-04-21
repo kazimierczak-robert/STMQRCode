@@ -105,7 +105,7 @@ bmp_error_t bmpParseBitmap(uint16_t x, uint16_t y, FIL file)
   FRESULT res;
   uint8_t buffer[infoHeader.width * 3+2];
 
-  PCD8544_Clear();//wyczysc ekran
+  //PCD8544_Clear();//wyczysc ekran
   for (py = infoHeader.height; py > 0; py--)
   {
     // Read one row at a time

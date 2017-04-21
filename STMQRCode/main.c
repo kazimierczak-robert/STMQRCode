@@ -366,6 +366,18 @@ void QRGenerator(char *input)
 	side = qr_encode(QR_LEVEL_L, 0, input, 0, bitdata);
 	displayQRCode(side, bitdata);
 }
+/* Flashcards */
+void displayFlashcard()
+{
+	FRESULT fr;
+	struct List *temporary_txt=pointer;
+    fr = f_stat(temporary_txt->file.fname, null);
+	if( fr == FR_OK )
+	{
+		QRGenerator(temporary_txt->file.fname);
+		ReadAndDisplayBMP(43, 2, temporary_txt->file.fname);
+	}
+}
 void listManager(bool RadicalsOrText) //Radicals->true, Text->false
 {
 	FRESULT fresult;
