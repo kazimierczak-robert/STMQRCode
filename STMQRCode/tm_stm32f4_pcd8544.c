@@ -441,7 +441,7 @@ void PCD8544_ClearFilename(void) {
 		PCD8544_Buffer[i] = 0x00;
 		//PCD8544_Write(PCD8544_DATA, 0x00);
 	}
-	PCD8544_GotoXY(9, 20);
+	PCD8544_GotoXY(0, 20);
 	PCD8544_UpdateArea(0, 10, 88, 38);
 	PCD8544_Refresh();
 }

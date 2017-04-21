@@ -6,6 +6,7 @@
 #include "stm32f4xx_exti.h"
 #include "stm32f4xx_tim.h"
 #include "stm32f4xx_rcc.h"
+#include "stm32f4xx_rng.h"
 #include "misc.h"
 #include "delay.h"
 #include "List.h"
@@ -21,14 +22,17 @@ FIL file;
 volatile s8 num_of_switch=-1;
 volatile u8 error_state=0;
 volatile bool action_button_state=0;
+volatile u32 numberOfFiles=0;
 struct List *first=0,*last=0,*pointer; //list of .txt file names
 bool RadicalsOrText=false;
+
+#define maxFileNameLength 64
 
 char* readtxtFile();
 bool isBMP(FILINFO fileInfo)
 {
 	int i=0;
-	for (i=0;i<253;i++)
+	for (i=0;i<maxFileNameLength-3;i++)
 	{
 		if(fileInfo.fname[i]=='.')
 		{
@@ -46,7 +50,7 @@ bool isBMP(FILINFO fileInfo)
 bool isTXT(FILINFO fileInfo)
 {
 	int i=0;
-	for (i=0;i<253;i++)
+	for (i=0;i<maxFileNameLength-3;i++)
 	{
 		if(fileInfo.fname[i]=='.')
 		{
@@ -69,14 +73,14 @@ void displayFlashcard()
 	FRESULT fr;
 	FILINFO fno;
 	struct List *temporary_txt=pointer;
-	TCHAR* name=(TCHAR *)calloc(269,1);
+	TCHAR* name=(TCHAR *)calloc(maxFileNameLength+13,1);
 	strcpy(name,"\\Radicals\\");
 	strcat(name, temporary_txt->file.fname);
 	//strcpy(name+11,);
     fr = f_stat(name, &fno);
 	if( fr == FR_OK )
 	{
-		TCHAR* proper=(TCHAR *)calloc(256,1);
+		TCHAR* proper=(TCHAR *)calloc(maxFileNameLength,1);
 		const char *p;
 
 		p = strchr(temporary_txt->file.fname, '.');
@@ -103,7 +107,7 @@ void listManager() //Radicals->true, Text->false
 	FRESULT fresult;
 	DIR Dir;
 	FILINFO fileInfo;
-
+	numberOfFiles=0;
 	//choose Radicals or Text QR Code
 	if (RadicalsOrText==true)
 	{
@@ -119,7 +123,7 @@ void listManager() //Radicals->true, Text->false
 		return(fresult);
 	}
 
-	u32 numberOfFiles=0;
+
 	u8 iter=0;
 	bool extResult=false;
 	for(;;)
@@ -156,7 +160,7 @@ void listManager() //Radicals->true, Text->false
 				numberOfFiles++;
 			}
 
-			for(iter=0;iter<255;++iter)
+			for(iter=0;iter<maxFileNameLength;++iter)
 			{
 				fileInfo.fname[iter]='0';
 			}
@@ -313,6 +317,9 @@ void TIM5_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM5, TIM_IT_Update) != RESET)
 	{
+		int i_loop=0;
+		u8 rand_number=0;
+
 		if (num_of_switch==0)//user button
 		{
 			//ReadAndDisplayBMP(24,0,"test.bmp");
@@ -322,7 +329,20 @@ void TIM5_IRQHandler(void)
 		{
 			if(action_button_state==0)
 			{
-				pointer=pointer->previous;
+				if(RadicalsOrText==true)
+				{
+					rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
+				}
+				else
+				{
+					rand_number=1;
+				}
+
+				for(i_loop=0;i_loop<rand_number;i_loop++)
+				{
+					pointer=pointer->previous;
+				}
+
 				if (RadicalsOrText==true) //flashcard mode
 				{
 					displayFlashcard();
@@ -386,7 +406,19 @@ void TIM5_IRQHandler(void)
 		{
 			if(action_button_state==0)
 			{
-				pointer=pointer->next;
+				if(RadicalsOrText==true)
+				{
+					rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
+				}
+				else
+				{
+					rand_number=1;
+				}
+
+				for(i_loop=0;i_loop<rand_number;i_loop++)
+				{
+					pointer=pointer->next;
+				}
 				if (RadicalsOrText==true) //flashcard mode
 				{
 					displayFlashcard();
@@ -405,7 +437,11 @@ void TIM5_IRQHandler(void)
 
 			if (RadicalsOrText==true) //flashcard mode
 			{
-
+				rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
+				for(i_loop=0;i_loop<rand_number;i_loop++)
+				{
+					pointer=pointer->next;
+				}
 				displayFlashcard();
 			}
 			else //text mode
@@ -490,7 +526,7 @@ void BUTTON_init()
 	/*0 - zapis do BMP
 	  5 - przewijanie wstecz
 	  7 - generuj kod
-	  6 - tryb fiszki lub textu
+	  9 - tryb fiszki lub textu
 	  8 - przewijanie do przodu*/
 	GPIO_InitTypeDef USER_BUTTON;
 	USER_BUTTON.GPIO_Pin = GPIO_Pin_0;
@@ -569,7 +605,8 @@ int main( void )
 		{ }
 	}
 	listManager();
-
+	RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_RNG, ENABLE);
+	RNG_Cmd(ENABLE);
 
 
 	BUTTON_init();

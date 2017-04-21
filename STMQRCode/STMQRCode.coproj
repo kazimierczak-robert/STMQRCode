@@ -78,6 +78,7 @@
     <Component id="506" name="RTC" path="" type="2"/>
     <Component id="509" name="SPI" path="" type="2"/>
     <Component id="513" name="TIM" path="" type="2"/>
+    <Component id="518" name="RNG" path="" type="2"/>
     <Component id="524" name="MISC" path="" type="2"/>
     <Component id="526" name="SYSCFG" path="" type="2"/>
   </Components>
@@ -86,12 +87,12 @@
     <File name="FatFS/diskio.h" path="FatFS/diskio.h" type="1"/>
     <File name="FatFS/integer.h" path="FatFS/integer.h" type="1"/>
     <File name="cmsis_boot" path="" type="2"/>
-    <File name="cmsis_lib/include/stm32f4xx_syscfg.h" path="cmsis_lib/include/stm32f4xx_syscfg.h" type="1"/>
     <File name="delay.h" path="delay.h" type="1"/>
+    <File name="cmsis_lib/include/stm32f4xx_syscfg.h" path="cmsis_lib/include/stm32f4xx_syscfg.h" type="1"/>
     <File name="spi_sd.c" path="spi_sd.c" type="1"/>
+    <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
     <File name="cmsis_boot/stm32f4xx.h" path="cmsis_boot/stm32f4xx.h" type="1"/>
     <File name="cmsis_boot/startup" path="" type="2"/>
-    <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_spi.c" path="cmsis_lib/source/stm32f4xx_spi.c" type="1"/>
     <File name="cmsis/core_cmFunc.h" path="cmsis/core_cmFunc.h" type="1"/>
     <File name="cmsis/core_cm4.h" path="cmsis/core_cm4.h" type="1"/>
@@ -118,6 +119,7 @@
     <File name="cmsis_lib/include/stm32f4xx_exti.h" path="cmsis_lib/include/stm32f4xx_exti.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_exti.c" path="cmsis_lib/source/stm32f4xx_exti.c" type="1"/>
     <File name="cmsis_boot/system_stm32f4xx.c" path="cmsis_boot/system_stm32f4xx.c" type="1"/>
+    <File name="cmsis_lib/source/stm32f4xx_rng.c" path="cmsis_lib/source/stm32f4xx_rng.c" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_spi.h" path="cmsis_lib/include/stm32f4xx_spi.h" type="1"/>
     <File name="FatFS/bmp.h" path="FatFS/bmp.h" type="1"/>
     <File name="QRLib/qr_encode.h" path="QRLib/qr_encode.h" type="1"/>
@@ -130,10 +132,11 @@
     <File name="cmsis_lib/include/stm32f4xx_rtc.h" path="cmsis_lib/include/stm32f4xx_rtc.h" type="1"/>
     <File name="syscalls" path="" type="2"/>
     <File name="cmsis_lib/include/misc.h" path="cmsis_lib/include/misc.h" type="1"/>
+    <File name="cmsis_lib/include/stm32f4xx_rng.h" path="cmsis_lib/include/stm32f4xx_rng.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
     <File name="FatFS/ff.c" path="FatFS/ff.c" type="1"/>
-    <File name="QRLib/qr_consts.h" path="QRLib/qr_consts.h" type="1"/>
     <File name="delay.c" path="delay.c" type="1"/>
+    <File name="QRLib/qr_consts.h" path="QRLib/qr_consts.h" type="1"/>
     <File name="main.c" path="main.c" type="1"/>
   </Files>
 </Project>
