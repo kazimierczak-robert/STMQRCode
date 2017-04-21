@@ -109,7 +109,7 @@ bmp_error_t bmpParseBitmap(uint16_t x, uint16_t y, FIL file)
   for (py = infoHeader.height; py > 0; py--)
   {
     // Read one row at a time
-    res = f_read(&file, &buffer, (infoHeader.width) * 3+2, &bytesRead);
+    res = f_read(&file, &buffer, (infoHeader.width) * 3, &bytesRead);
     if (res || bytesRead == 0)
     {
       // Error or EOF

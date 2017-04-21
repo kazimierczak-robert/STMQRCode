@@ -22,8 +22,231 @@ volatile s8 num_of_switch=-1;
 volatile u8 error_state=0;
 volatile bool action_button_state=0;
 struct List *first=0,*last=0,*pointer; //list of .txt file names
+bool RadicalsOrText=false;
 
 char* readtxtFile();
+bool isBMP(FILINFO fileInfo)
+{
+	int i=0;
+	for (i=0;i<253;i++)
+	{
+		if(fileInfo.fname[i]=='.')
+		{
+			if((fileInfo.fname[i+1]=='B'|| fileInfo.fname[i+1]=='b')
+					&& (fileInfo.fname[i+2]=='M' || fileInfo.fname[i+2]=='m')
+					&& (fileInfo.fname[i+3]=='P'|| fileInfo.fname[i+3]=='p'))
+			{
+				fileInfo.fname[i+4]='\0';
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+bool isTXT(FILINFO fileInfo)
+{
+	int i=0;
+	for (i=0;i<253;i++)
+	{
+		if(fileInfo.fname[i]=='.')
+		{
+			if((fileInfo.fname[i+1]=='T'|| fileInfo.fname[i+1]=='t')
+					&& (fileInfo.fname[i+2]=='X' || fileInfo.fname[i+2]=='x')
+					&& (fileInfo.fname[i+3]=='T'|| fileInfo.fname[i+3]=='t'))
+			{
+				fileInfo.fname[i+4]='\0';
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+/* Flashcards */
+void displayFlashcard()
+{
+	PCD8544_Clear();
+	PCD8544_Refresh();
+	FRESULT fr;
+	FILINFO fno;
+	struct List *temporary_txt=pointer;
+	TCHAR* name=(TCHAR *)calloc(269,1);
+	strcpy(name,"\\Radicals\\");
+	strcat(name, temporary_txt->file.fname);
+	//strcpy(name+11,);
+    fr = f_stat(name, &fno);
+	if( fr == FR_OK )
+	{
+		TCHAR* proper=(TCHAR *)calloc(256,1);
+		const char *p;
+
+		p = strchr(temporary_txt->file.fname, '.');
+		if (p)
+		{
+			int bytes=p-temporary_txt->file.fname;
+			TCHAR* name2=temporary_txt->file.fname;
+		    memmove(proper,name2 ,bytes);
+		}
+
+
+	//int radicalNameLength=strlen(temporary_txt->file.fname);
+		//memmove (properName, temporary_txt->file.fname, radicalNameLength);
+		QRGenerator(proper);
+		ReadAndDisplayBMP(43, 2,name);
+	}
+	free(name);
+}
+void listManager() //Radicals->true, Text->false
+{
+	first=last=remove_all(first);
+	first->next->file.fname;
+	pointer=0;
+	FRESULT fresult;
+	DIR Dir;
+	FILINFO fileInfo;
+
+	//choose Radicals or Text QR Code
+	if (RadicalsOrText==true)
+	{
+		fresult = f_opendir(&Dir, "\\Radicals");
+	}
+	else
+	{
+		fresult = f_opendir(&Dir, "\\");
+	}
+
+	if(fresult != FR_OK)
+	{
+		return(fresult);
+	}
+
+	u32 numberOfFiles=0;
+	u8 iter=0;
+	bool extResult=false;
+	for(;;)
+	{
+		fresult = f_readdir(&Dir, &fileInfo);
+
+		if(fresult != FR_OK)
+		{
+			return(fresult);
+		}
+		if(!fileInfo.fname[0])
+		{
+			break;
+		}
+
+		if (RadicalsOrText==true)
+		{
+			extResult=isBMP(fileInfo);
+		}
+		else
+		{
+			extResult=isTXT(fileInfo);
+		}
+		if(extResult==1)
+		{
+			if(numberOfFiles==0)
+			{
+				first=last=add_last(last,fileInfo);
+			}
+			else
+			{
+				last=add_last(last,fileInfo);
+			}
+				numberOfFiles++;
+			}
+
+			for(iter=0;iter<255;++iter)
+			{
+				fileInfo.fname[iter]='0';
+			}
+		}
+	if (first==0)// jesli na karcie nie ma plikow .txt
+		{
+			error_state=3;
+			PCD8544_GotoXY(12, 17);
+			PCD8544_Puts("Brak plikow", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+			PCD8544_GotoXY(3, 25);
+			PCD8544_Puts(".txt na karcie", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+			PCD8544_Refresh();
+			TIM_Cmd(TIM4, ENABLE);
+			for(;;)
+			{ }
+		}
+		last->next=first;
+		first->previous=last;
+		pointer=first;
+}
+void display_const()
+{
+	//Go to x=1, y=2 position
+	PCD8544_GotoXY(15, 0);
+	//Print data with Pixel Set mode and Fontsize of 5x7px
+	PCD8544_Puts("STMQRCode", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_GotoXY(32, 40);
+	PCD8544_Puts("2017", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_Refresh();
+}
+/* QRCode */
+void display_filename()
+{
+	PCD8544_ClearFilename();
+	//Print data with Pixel Set mode and Fontsize of 5x7px
+	PCD8544_Puts(pointer->file.fname, PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
+	PCD8544_Refresh();
+}
+void displayQRCode(int side, uint8_t *bitdata)
+{
+	PCD8544_Clear();
+	int i=0;
+	int j=0;
+	int a=0;
+	int l=0;
+	int n=0;
+	int OUT_FILE_PIXEL_PRESCALER=1;
+	if (side==21)
+	{
+		OUT_FILE_PIXEL_PRESCALER=2;
+	}
+		for (i = 0; i < side; i++) {
+
+			for (j = 0; j < side; j++) {
+				a = j * side + i;
+
+				if ((bitdata[a / 8] & (1 << (7 - a % 8))))
+				{
+					for (l = 0; l < OUT_FILE_PIXEL_PRESCALER; l++)
+					{
+						for (n = 0; n < OUT_FILE_PIXEL_PRESCALER; n++)
+						{
+							//*(pDestData + n * 3 + unWidthAdjusted * l) = PIXEL_COLOR_B;
+							PCD8544_DrawPixel(OUT_FILE_PIXEL_PRESCALER*i+l,OUT_FILE_PIXEL_PRESCALER*(j)+n,PCD8544_Pixel_Set);
+						}
+					}
+				}
+			}
+		}
+
+		 PCD8544_Refresh();
+}
+void ReadAndDisplayBMP(uint16_t x, uint16_t y, char* filename)
+{
+	bmpDrawBitmap(x, y, filename);
+}
+void QRGenerator(char *input)
+{
+	int side, i, j, a;
+	uint8_t bitdata[QR_MAX_BITDATA];
+
+	// remove newline
+	if (input[strlen(input) - 1] == '\n')
+	{
+		input[strlen(input) - 1] = 0;
+	}
+
+	side = qr_encode(QR_LEVEL_L, 0, input, 0, bitdata);
+	displayQRCode(side, bitdata);
+}
 void EXTI0_IRQHandler(void)
 {
 	// drgania stykow
@@ -54,6 +277,13 @@ void EXTI9_5_IRQHandler(void)
 		TIM_Cmd(TIM5, ENABLE);
 		EXTI_ClearITPendingBit(EXTI_Line8);
 	}
+	else if(EXTI_GetITStatus(EXTI_Line9) != RESET)
+	{
+		num_of_switch=9;
+		TIM_Cmd(TIM5, ENABLE);
+		EXTI_ClearITPendingBit(EXTI_Line9);
+	}
+
 }
 void TIM4_IRQHandler(void)
 {
@@ -93,11 +323,20 @@ void TIM5_IRQHandler(void)
 			if(action_button_state==0)
 			{
 				pointer=pointer->previous;
-				display_filename();
+				if (RadicalsOrText==true) //flashcard mode
+				{
+					displayFlashcard();
+				}
+				else
+				{
+					display_filename();
+				}
 			}
 		}
 		else if (num_of_switch==7)// switch 7 - generate QRCode
 		{
+			if (RadicalsOrText==false)
+			{
 			if(action_button_state==0)
 			{
 				action_button_state=1;
@@ -141,12 +380,40 @@ void TIM5_IRQHandler(void)
 				display_const();
 				display_filename();
 			}
+			}
 		}
 		else if (num_of_switch==8)// switch 8 - next file
 		{
 			if(action_button_state==0)
 			{
 				pointer=pointer->next;
+				if (RadicalsOrText==true) //flashcard mode
+				{
+					displayFlashcard();
+				}
+				else
+				{
+					display_filename();
+				}
+			}
+		}
+		else if (num_of_switch==9)// flashcards or text
+		{
+			RadicalsOrText=!RadicalsOrText;
+
+			listManager();
+
+			if (RadicalsOrText==true) //flashcard mode
+			{
+
+				displayFlashcard();
+			}
+			else //text mode
+			{
+				PCD8544_Clear();
+				PCD8544_Refresh();
+
+				display_const();
 				display_filename();
 			}
 		}
@@ -223,6 +490,7 @@ void BUTTON_init()
 	/*0 - zapis do BMP
 	  5 - przewijanie wstecz
 	  7 - generuj kod
+	  6 - tryb fiszki lub textu
 	  8 - przewijanie do przodu*/
 	GPIO_InitTypeDef USER_BUTTON;
 	USER_BUTTON.GPIO_Pin = GPIO_Pin_0;
@@ -230,7 +498,7 @@ void BUTTON_init()
 	USER_BUTTON.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOA, &USER_BUTTON);
 
-	USER_BUTTON.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_8;
+	USER_BUTTON.GPIO_Pin = GPIO_Pin_5 |GPIO_Pin_9| GPIO_Pin_7 | GPIO_Pin_8;
 	USER_BUTTON.GPIO_PuPd = GPIO_PuPd_DOWN;
 	GPIO_Init(GPIOA, &USER_BUTTON);
 }
@@ -255,193 +523,15 @@ void INTERRUPT_init()
 
 	// KONFIGURACJA KONTROLERA PRZERWAN DLA SWITCH Pin_5, Pin_6, Pin_7
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
-	EXTI_InitStructure.EXTI_Line = EXTI_Line5 | EXTI_Line7 | EXTI_Line8;
+	EXTI_InitStructure.EXTI_Line = EXTI_Line5 |EXTI_Line9| EXTI_Line7 | EXTI_Line8;
 	NVIC_Init(&NVIC_InitStructure);
 	EXTI_Init(&EXTI_InitStructure);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource5);
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource9);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource7);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource8);
 }
-bool isTXT(FILINFO fileInfo)
-{
-	int i=0;
-	for (i=0;i<253;i++)
-	{
-		if(fileInfo.fname[i]=='.')
-		{
-			if((fileInfo.fname[i+1]=='T'|| fileInfo.fname[i+1]=='t')
-					&& (fileInfo.fname[i+2]=='X' || fileInfo.fname[i+2]=='x')
-					&& (fileInfo.fname[i+3]=='T'|| fileInfo.fname[i+3]=='t'))
-			{
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
-bool isBMP(FILINFO fileInfo)
-{
-	int i=0;
-	for (i=0;i<253;i++)
-	{
-		if(fileInfo.fname[i]=='.')
-		{
-			if((fileInfo.fname[i+1]=='B'|| fileInfo.fname[i+1]=='b')
-					&& (fileInfo.fname[i+2]=='M' || fileInfo.fname[i+2]=='m')
-					&& (fileInfo.fname[i+3]=='P'|| fileInfo.fname[i+3]=='p'))
-			{
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
-void display_const()
-{
-	//Go to x=1, y=2 position
-	PCD8544_GotoXY(15, 0);
-	//Print data with Pixel Set mode and Fontsize of 5x7px
-	PCD8544_Puts("STMQRCode", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_GotoXY(32, 40);
-	PCD8544_Puts("2017", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_Refresh();
-}
-/* QRCode */
-void display_filename()
-{
-	PCD8544_ClearFilename();
-	//Print data with Pixel Set mode and Fontsize of 5x7px
-	PCD8544_Puts(pointer->file.fname, PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-	PCD8544_Refresh();
-}
-void displayQRCode(int side, uint8_t *bitdata)
-{
-	PCD8544_Clear();
-	int i=0;
-	int j=0;
-	int a=0;
-	int l=0;
-	int n=0;
-	int OUT_FILE_PIXEL_PRESCALER=1;
-	if (side==21)
-	{
-		OUT_FILE_PIXEL_PRESCALER=2;
-	}
-		for (i = 0; i < side; i++) {
 
-			for (j = 0; j < side; j++) {
-				a = j * side + i;
-
-				if ((bitdata[a / 8] & (1 << (7 - a % 8))))
-				{
-					for (l = 0; l < OUT_FILE_PIXEL_PRESCALER; l++)
-					{
-						for (n = 0; n < OUT_FILE_PIXEL_PRESCALER; n++)
-						{
-							//*(pDestData + n * 3 + unWidthAdjusted * l) = PIXEL_COLOR_B;
-							PCD8544_DrawPixel(OUT_FILE_PIXEL_PRESCALER*i+l,OUT_FILE_PIXEL_PRESCALER*(j)+n,PCD8544_Pixel_Set);
-						}
-					}
-				}
-			}
-		}
-
-		 PCD8544_Refresh();
-}
-void ReadAndDisplayBMP(uint16_t x, uint16_t y, char* filename)
-{
-	bmpDrawBitmap(x, y, filename);
-}
-void QRGenerator(char *input)
-{
-	int side, i, j, a;
-	uint8_t bitdata[QR_MAX_BITDATA];
-
-	// remove newline
-	if (input[strlen(input) - 1] == '\n')
-	{
-		input[strlen(input) - 1] = 0;
-	}
-
-	side = qr_encode(QR_LEVEL_L, 0, input, 0, bitdata);
-	displayQRCode(side, bitdata);
-}
-/* Flashcards */
-void displayFlashcard()
-{
-	FRESULT fr;
-	struct List *temporary_txt=pointer;
-    fr = f_stat(temporary_txt->file.fname, null);
-	if( fr == FR_OK )
-	{
-		QRGenerator(temporary_txt->file.fname);
-		ReadAndDisplayBMP(43, 2, temporary_txt->file.fname);
-	}
-}
-void listManager(bool RadicalsOrText) //Radicals->true, Text->false
-{
-	FRESULT fresult;
-	DIR Dir;
-	FILINFO fileInfo;
-
-	//choose Radicals or Text QR Code
-	if (RadicalsOrText==true)
-	{
-		fresult = f_opendir(&Dir, "\\Radicals");
-	}
-	else
-	{
-		fresult = f_opendir(&Dir, "\\");
-	}
-
-	if(fresult != FR_OK)
-	{
-		return(fresult);
-	}
-
-	u32 numberOfFiles=0;
-	u8 iter=0;
-	bool extResult=false;
-	for(;;)
-	{
-		fresult = f_readdir(&Dir, &fileInfo);
-
-		if(fresult != FR_OK)
-		{
-			return(fresult);
-		}
-		if(!fileInfo.fname[0])
-		{
-			break;
-		}
-
-		if (RadicalsOrText==true)
-		{
-			extResult=isBMP(fileInfo);
-		}
-		else
-		{
-			extResult=isTXT(fileInfo);
-		}
-		if(extResult==1)
-		{
-			if(numberOfFiles==0)
-			{
-				first=last=add_last(last,fileInfo);
-			}
-			else
-			{
-				last=add_last(last,fileInfo);
-			}
-				numberOfFiles++;
-			}
-
-			for(iter=0;iter<255;++iter)
-			{
-				fileInfo.fname[iter]='0';
-			}
-		}
-}
 int main( void )
 {
 	SystemInit();
@@ -478,23 +568,9 @@ int main( void )
 		for(;;)
 		{ }
 	}
-	listManager(1);
+	listManager();
 
-	if (first==0)// jesli na karcie nie ma plikow .txt
-	{
-		error_state=3;
-		PCD8544_GotoXY(12, 17);
-		PCD8544_Puts("Brak plikow", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-		PCD8544_GotoXY(3, 25);
-		PCD8544_Puts(".txt na karcie", PCD8544_Pixel_Set, PCD8544_FontSize_5x7);
-		PCD8544_Refresh();
-		TIM_Cmd(TIM4, ENABLE);
-		for(;;)
-		{ }
-	}
-	last->next=first;
-	first->previous=last;
-	pointer=first;
+
 
 	BUTTON_init();
 	JOINT_VIBRATION();
