@@ -327,30 +327,30 @@ void TIM5_IRQHandler(void)
 		}
 		else if (num_of_switch==5)// switch 5 - previous file
 		{
-			if(action_button_state==0)
+			action_button_state=0;
+			if(RadicalsOrText==true)
 			{
-				if(RadicalsOrText==true)
-				{
-					rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
-				}
-				else
-				{
-					rand_number=1;
-				}
+				rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
+			}
+			else
+			{
+				rand_number=1;
+			}
 
-				for(i_loop=0;i_loop<rand_number;i_loop++)
-				{
-					pointer=pointer->previous;
-				}
+			for(i_loop=0;i_loop<rand_number;i_loop++)
+			{
+				pointer=pointer->previous;
+			}
 
-				if (RadicalsOrText==true) //flashcard mode
-				{
-					displayFlashcard();
-				}
-				else
-				{
-					display_filename();
-				}
+			if (RadicalsOrText==true) //flashcard mode
+			{
+				displayFlashcard();
+			}
+			else
+			{
+				PCD8544_Clear();
+				display_const();
+				display_filename();
 			}
 		}
 		else if (num_of_switch==7)// switch 7 - generate QRCode
@@ -404,33 +404,35 @@ void TIM5_IRQHandler(void)
 		}
 		else if (num_of_switch==8)// switch 8 - next file
 		{
-			if(action_button_state==0)
+			action_button_state=0;
+			if(RadicalsOrText==true)
 			{
-				if(RadicalsOrText==true)
-				{
-					rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
-				}
-				else
-				{
-					rand_number=1;
-				}
-
-				for(i_loop=0;i_loop<rand_number;i_loop++)
-				{
-					pointer=pointer->next;
-				}
-				if (RadicalsOrText==true) //flashcard mode
-				{
-					displayFlashcard();
-				}
-				else
-				{
-					display_filename();
-				}
+				rand_number=RNG_GetRandomNumber()%(numberOfFiles-1)+1;
 			}
+			else
+			{
+				rand_number=1;
+			}
+
+			for(i_loop=0;i_loop<rand_number;i_loop++)
+			{
+				pointer=pointer->next;
+			}
+			if (RadicalsOrText==true) //flashcard mode
+			{
+				displayFlashcard();
+			}
+			else
+			{
+				PCD8544_Clear();
+				display_const();
+				display_filename();
+			}
+
 		}
 		else if (num_of_switch==9)// flashcards or text
 		{
+			action_button_state=0;
 			RadicalsOrText=!RadicalsOrText;
 
 			listManager();

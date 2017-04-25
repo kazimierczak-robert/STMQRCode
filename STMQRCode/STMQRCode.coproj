@@ -87,12 +87,12 @@
     <File name="FatFS/diskio.h" path="FatFS/diskio.h" type="1"/>
     <File name="FatFS/integer.h" path="FatFS/integer.h" type="1"/>
     <File name="cmsis_boot" path="" type="2"/>
-    <File name="delay.h" path="delay.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_syscfg.h" path="cmsis_lib/include/stm32f4xx_syscfg.h" type="1"/>
+    <File name="delay.h" path="delay.h" type="1"/>
     <File name="spi_sd.c" path="spi_sd.c" type="1"/>
+    <File name="cmsis_boot/startup" path="" type="2"/>
     <File name="cmsis/core_cm4_simd.h" path="cmsis/core_cm4_simd.h" type="1"/>
     <File name="cmsis_boot/stm32f4xx.h" path="cmsis_boot/stm32f4xx.h" type="1"/>
-    <File name="cmsis_boot/startup" path="" type="2"/>
     <File name="cmsis_lib/source/stm32f4xx_spi.c" path="cmsis_lib/source/stm32f4xx_spi.c" type="1"/>
     <File name="cmsis/core_cmFunc.h" path="cmsis/core_cmFunc.h" type="1"/>
     <File name="cmsis/core_cm4.h" path="cmsis/core_cm4.h" type="1"/>
@@ -127,16 +127,16 @@
     <File name="cmsis_lib" path="" type="2"/>
     <File name="FatFS/bmp.c" path="FatFS/bmp.c" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_tim.c" path="cmsis_lib/source/stm32f4xx_tim.c" type="1"/>
-    <File name="cmsis_lib/include/stm32f4xx_gpio.h" path="cmsis_lib/include/stm32f4xx_gpio.h" type="1"/>
     <File name="FatFS/ffconf.h" path="FatFS/ffconf.h" type="1"/>
-    <File name="cmsis_lib/include/stm32f4xx_rtc.h" path="cmsis_lib/include/stm32f4xx_rtc.h" type="1"/>
+    <File name="cmsis_lib/include/stm32f4xx_gpio.h" path="cmsis_lib/include/stm32f4xx_gpio.h" type="1"/>
     <File name="syscalls" path="" type="2"/>
+    <File name="cmsis_lib/include/stm32f4xx_rtc.h" path="cmsis_lib/include/stm32f4xx_rtc.h" type="1"/>
     <File name="cmsis_lib/include/misc.h" path="cmsis_lib/include/misc.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_rng.h" path="cmsis_lib/include/stm32f4xx_rng.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
     <File name="FatFS/ff.c" path="FatFS/ff.c" type="1"/>
-    <File name="delay.c" path="delay.c" type="1"/>
     <File name="QRLib/qr_consts.h" path="QRLib/qr_consts.h" type="1"/>
+    <File name="delay.c" path="delay.c" type="1"/>
     <File name="main.c" path="main.c" type="1"/>
   </Files>
 </Project>
