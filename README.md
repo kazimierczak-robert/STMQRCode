@@ -65,6 +65,7 @@ The only step is download the project and compile it with CooCox CoIDE.
 * https://www.kismetwireless.net/code-old/svn/hardware/kisbee-02/firmware/drivers/displays/tft/bmp.h
 * http://elm-chan.org/fsw/ff/00index_e.html
 * https://github.com/trezor/trezor-qrenc
+* https://magazeta.com/chinese-radicals
 
 ## License
 MIT
